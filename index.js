@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const path = require("path");
 const Chat = require("./models/chat.js");
 const methodOverride = require("method-override");
+require("dotenv").config();
+
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -17,7 +19,10 @@ main().then(() => {
     .catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/whatsapp');
+    await mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
 }
 
 // let chat1 = new Chat({
@@ -112,6 +117,8 @@ app.get("/", (req, res) => {
 
 });
 
-app.listen(8080, () => {
-    console.log("Server is listening on port 8080");
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
 });
