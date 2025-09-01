@@ -16,38 +16,26 @@
     </form>
     <br>
 
-    <% for(let chat of chats){ %>
-        <div class="chat">
-            <p>From : <i>
-                    <%= chat.from %>
-                </i>
-            </p>
-            <div class="msg">
-                <p>
-                    <%= chat.message %>
-                </p>
-                <form method = "GET" action="/chats/ <%=chat._id %>/edit ">
-                    <button>Edit</button>
-                </form>
+    <!-- Container for horizontal chat layout -->
+    <div class="chat-container">
+        <% for(let chat of chats){ %>
+            <div class="chat">
+                <p class="chat-info">From : <i><%= chat.from %></i></p>
+
+                <div class="msg">
+                    <p><%= chat.message %></p>
+                    <form method="GET" action="/chats/<%= chat._id %>/edit">
+                        <button class="edit-btn">Edit</button>
+                    </form>
+                </div>
+
+                <p class="chat-info">Received by : <i><%= chat.to %></i></p>
+
+                <p class="time"><%= chat.created_at.toString().split(" ")[4] %></p>
+                <p class="date"><%= chat.created_at.toString().split(" ").splice(0,4).join(" ") %></p>
             </div>
-
-            <p>Received by : <i>
-                    <%= chat.to%>
-                </i>
-            </p>
-            <hr>
-            <p>
-                <%= chat.created_at.toString().split(" ")[4] %>
-            </p>
-            <p>
-                <%= chat.created_at.toString().split(" ").splice(0,4).join(" ")%>
-            </p>
-        </div>
-        <br><br>
-
         <% } %>
-
-
+    </div>
 </body>
 
 </html>
