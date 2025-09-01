@@ -1,23 +1,15 @@
 const mongoose = require("mongoose");
 
 const chatSchema = new mongoose.Schema({
-    from: {
-        type: String,
-        required: true,
-    },
-    to: {
-        type: String,
-        required: true,
-    },
-    message: {
-        type: String,
-        maxLength: 50
-    },
-    created_at: {
-        type: Date,
-        required: true,
+    from: { type: String, required: true },
+    to: { type: String, required: true },
+    message: { type: String, maxLength: 50 },
+    created_at: { type: Date, default: Date.now },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     }
-
 });
 
 const Chat = mongoose.model("Chat", chatSchema);
